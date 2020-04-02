@@ -102,32 +102,38 @@ void SListPopFront(SListNode** pplist) {
 		free(cur);  //此处要free,避免内存泄漏
 	}
 }
-//// 单链表查找
-//SListNode* SListFind(SListNode* plist, SLTDateType x){
-//	//判断是否为空链表
-//	if (plist == NULL) {
-//		return NULL;
-//	}
-//	else {
-//		while (plist->next  && plist ) {  //条件有误!!!!
-//			if (plist->data == x) {
-//				return plist;
-//			}
-//			plist = plist->next;
-//		}
-//		return NULL;
-//	}
-//}
-//// 单链表在pos位置之后插入x
-//// 分析思考为什么不在pos位置之前插入？
-//void SListInsertAfter(SListNode* pos, SLTDateType x){
-//	SListNode* Newnode = BuySListNode(x);
-//	if (Newnode == NULL) {
-//		pos->next = Newnode;
-//		Newnode->next = pos->next;
-//	}
-//
-//}
+// 单链表查找
+SListNode* SListFind(SListNode* plist, SLTDateType x){
+	//判断是否为空链表
+	if (plist == NULL) {
+		return NULL;
+	}
+	else {
+		SListNode* cur = plist;
+		while (cur) {  //条件有误!!!!
+			if (cur->data == x) {
+				return cur;
+			}
+			if (cur->next != NULL) {
+				cur = cur->next;
+			}
+		}
+		return NULL;
+	}
+}
+// 单链表在pos位置之后插入x
+// 分析思考为什么不在pos位置之前插入？
+void SListInsertAfter(SListNode* pos, SLTDateType x){
+	SListNode* Newnode = BuySListNode(x);
+	if (pos == NULL) {
+		pos->next = Newnode;
+	}
+	else {
+		Newnode->next = pos->next;
+		pos->next = Newnode;
+	}
+}
+
 // 单链表删除pos位置之后的值
 // 分析思考为什么不删除pos位置？
 //已测试  OK!
@@ -145,6 +151,21 @@ void SListEraseAfter(SListNode* pos) {
 	
 }
 // 单链表的销毁
-//void SListDestory(SListNode* plist) {
-//	free(plist);
-//}
+void SListDestory(SListNode* plist) {
+
+	//SListNode* cur = plist;
+	//while (cur != NULL) {
+	//	SListNode* tail = cur->next; 
+	//	free(cur);
+	//	//if (tail != NULL) {    //此处要是为最后一个元素,当判断为NULL后,cur不会更新,导致cur非法访问内存!   未定义行为
+	//	//	cur = tail;
+	//	//}
+	//}
+
+	SListNode* cur = plist;
+	while (cur != NULL) {
+		SListNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+}

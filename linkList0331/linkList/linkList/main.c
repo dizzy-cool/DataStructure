@@ -14,10 +14,14 @@ void test(void) {
 	//SListPushBack(&sl, 4);
 	//SListPopBack(&sl);
 	SListPrint(sl);
-	//SListNode* find = SListFind(&sl, 2);
+	//SListNode* find = SListFind(sl, 2);
 	//SListPrint(find);
+	SListInsertAfter(sl, 90);
 
-	SListEraseAfter(sl);
+	//SListEraseAfter(sl);
+	SListPrint(sl);
+
+	SListDestory(sl);
 	SListPrint(sl);
 }
 int main(void) {
