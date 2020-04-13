@@ -1,0 +1,4 @@
+﻿  list.c
+e:\bittechlogy\datastructure\doubleheadlist\doubleheadlist\doubleheadlist\list.c(96): warning C4133: “return”: 从“ListNode *”到“List *”的类型不兼容
+e:\bittechlogy\datastructure\doubleheadlist\doubleheadlist\doubleheadlist\list.c(107): warning C4101: “cur”: 未引用的局部变量
+  doubleHeadList.vcxproj -> E:\bitTechlogy\dataStructure\doubleHeadList\doubleHeadList\Debug\doubleHeadList.exe
