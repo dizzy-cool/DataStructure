@@ -21,10 +21,20 @@ void Swap(HPDataType* array, int left, int right);
 
 void heapCreat(Heap* hp, HPDataType* array, int size);
 
-void heapUpCreat(Heap* hp, HPDataType* array, int size, int insertN);
+void shiftDown(HPDataType* array, int size, int parent, cmp Cmp);
 
-void shiftDown(HPDataType* array, int size, int parent);
+void shiftUp(HPDataType* array, int child, cmp Cmp);
 
-//void shiftUp(HPDataType* array, int child);
+void heapPush(Heap* hp, HPDataType data);
+
+void heapPop(Heap* hp);
+
+HPDataType heapTop(Heap* hp);
+
+void heapDestory(Heap* hp);
+
+void heapSize(Heap* hp);
+
+void heapEmpty(Heap* hp);
 
 void heapPrint(Heap* hp);

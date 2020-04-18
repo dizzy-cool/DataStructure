@@ -17,7 +17,7 @@ void Swap(HPDataType* array, int left, int right) {
 	array[left] = array[right];
 	array[right] = temp;
 }
-
+//建堆
 void heapCreat(Heap* hp, HPDataType* array, int size) {
 	//建堆函数
 	hp->_array = (HPDataType*)malloc(sizeof(HPDataType) * size);
@@ -49,11 +49,11 @@ void shiftDown(HPDataType* array, int size, int parent, cmp Cmp) {  //从此父节点
 		}
 	}
 }
-//大堆的向上调整
-void shiftUp(HPDataType* array, int child) {
+//堆的向上调整
+void shiftUp(HPDataType* array, int child, cmp Cmp) {
 	while (child > 0) {
 		int parent = (child - 1) / 2;
-		if (array[parent] < array[child]) {   //试下函数指针
+		if (Cmp(array[parent] , array[child])) {   //大堆 parent < child时,交换
 			Swap(array, parent, child);
 			child = parent;
 			parent = (child - 1) / 2;
@@ -63,22 +63,46 @@ void shiftUp(HPDataType* array, int child) {
 		}
 	}
 }
-void heapUpCreat(Heap* hp, HPDataType* array, int size, int insertN) {
-	//建堆函数
-	hp->_array = (HPDataType*)malloc(sizeof(HPDataType) * size);
-	memcpy(hp->_array, array, sizeof(HPDataType) * (size - 1));
-	hp->_array[size - 1] = insertN;
+// 堆的插入
+void heapPush(Heap* hp, HPDataType data) {
 
-	hp->_size = size;
-	hp->_capacity = size;
-
-	////从最后一个非叶子节点开始建堆  (size - 2) / 2
-	//for (int parent = (size - 2) / 2; parent >= 0; parent--) {
-	//	shiftUp(hp->_array, parent);
-	//}
-	//shiftUp(array, size);
-
+	//1.尾插,检查容量
+	if (hp->_size >= hp->_capacity) {
+		hp->_capacity = hp->_size * 2;
+		hp->_array = (HPDataType*) realloc(hp->_array, hp->_capacity * sizeof(HPDataType));  //realloc\malloc\calloc函数申请的内存单位是字节,要注意sizeof
+	}
+	hp->_array[hp->_size++] = data;
+	//2.向上调整
+	shiftUp(hp->_array, hp->_size-1, Big);			//child位置的确认	
 }
+
+void heapPop(Heap* hp) {
+	Swap(hp->_array, 0, hp->_size - 1);
+	hp->_size--;		//伪删除
+	shiftDown(hp->_array, hp->_size, 0, Big);
+}
+//取堆顶元素
+HPDataType heapTop(Heap* hp) {
+	return hp->_array[0];
+}
+//堆的销毁
+void heapDestory(Heap* hp) {
+	free(hp->_array);
+}
+//堆的数据个数
+void heapSize(Heap* hp) {
+	return hp->_size;
+}
+//堆的判空
+void heapEmpty(Heap* hp) {
+	if (hp->_size == 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+//堆的打印
 void heapPrint(Heap* hp) {
 	for (int i = 0; i < hp->_size; i++) {
 		printf("%d ", hp->_array[i]);

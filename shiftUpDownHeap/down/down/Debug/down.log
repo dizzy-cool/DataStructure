@@ -1,4 +1,2 @@
-﻿  heapDown.c
-e:\bittechlogy\datastructure\tree\down\down\heapdown.c(30): warning C4020: “shiftDown”: 实参太多
-e:\bittechlogy\datastructure\tree\down\down\heapdown.c(36): warning C4029: 声明的形参表不同于定义
-  down.vcxproj -> E:\bitTechlogy\dataStructure\tree\down\Debug\down.exe
+﻿  sort.c
+  down.vcxproj -> E:\bitTechlogy\DataStructure\shiftUpDownHeap\down\Debug\down.exe
