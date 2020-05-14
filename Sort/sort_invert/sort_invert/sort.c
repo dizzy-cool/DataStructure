@@ -103,10 +103,55 @@ void selectSort2(int* array, int size) {
 		end--;
 	}
 }
+
+//三数取中: 有序的优化
+int getMid(int* array, int begin, int end) {
+	int mid = begin + (end - begin) / 2;
+	// begin < mid
+	if (array[begin] < array[mid]) {
+		if (array[mid] < array[end]) { 
+			return mid; // begin < mid < end
+		}
+		else {
+			//begin < mid 
+			//mid >= end
+			if (array[begin] > array[end]) {
+				//mid > begin > end
+				return begin;
+			}
+			else {
+				//mid > end > begin
+				return end;
+			}
+		}
+	}
+	else {
+		//begin >= mid
+		if (array[mid] > array[end]) {
+			//mid > end
+			return mid;
+		}
+		else {
+			//begin >= mid
+			//end >= mid
+			if (array[begin] > array[end]) {
+				//begin > end > mid
+				return end;
+			}
+			else {
+				//end > begin > mid
+				return begin;
+			}
+		}
+	}
+}
 //快速排序的第一种划分方法: hora划分区间
 int partion(int* array, int begin, int end) {
 	//以升序为例
 	//基准值val 为未排序区间的首元素
+	int mid = getMid(array, begin, end);
+	Swap(array, begin, mid);
+
 	int val = array[begin];
 	int start = begin;
 	while (begin < end) {
@@ -170,6 +215,7 @@ int partion3(int* array, int begin, int end) {
 		if (array[cur] < val && prev + 1 != cur) {
 			prev++;
 			Swap(array, prev, cur);
+			//交换后,prev依然是cur之前的最后一个小于基准值的位置
 		}
 		cur++;
 	}
@@ -185,7 +231,7 @@ void quickSort(int* array, int begin, int end) {
 		return;
 	}
 	//划分当前区间
-	int valPos = partion3(array, begin, end);
+	int valPos = partion(array, begin, end);
 	//划分子区间
 	quickSort(array, begin, valPos - 1);
 	quickSort(array, valPos + 1, end);

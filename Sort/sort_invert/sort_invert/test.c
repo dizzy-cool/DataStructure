@@ -22,6 +22,10 @@ void test() {
 	quickSort(array, 0, size - 1);
 	printf("quickSort\n");
 	printArray(array, size);
+
+	quickSort(array, 0, size - 1);
+	printf("sorted quickSort\n");
+	printArray(array, size);
 }
 
 

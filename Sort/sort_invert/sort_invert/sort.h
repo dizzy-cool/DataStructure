@@ -9,6 +9,8 @@ void shellSort(int* array, int size);
 void selectSort(int* array, int size);
 void selectSort2(int* array, int size);
 
+int getMid(int* array, int begin, int end);
+
 int partion(int* array, int begin, int end);
 int partion2(int* array, int begin, int end);
 int partion3(int* array, int begin, int end);
